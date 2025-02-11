@@ -9,7 +9,13 @@ export default {
   ],
   theme: {
   	extend: {
-  		colors: {
+			colors: {
+				blueLight: "#28a6e7",
+				blue: "#0c247c",
+				blueGray: "#266052",
+				green: "#53c97d",
+				greenMedium: "#55978b",
+				greenLight: "#bddecf",
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -55,7 +61,11 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+			},
+			
+			screens: {
+				xs: "450px",
+			},
   	}
   },
   plugins: [require("tailwindcss-animate")],
