@@ -70,3 +70,31 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(460deg);
+  }
+}
+
+.gradient {
+  --size: 200px;
+  --speed: 50s;
+  --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
+  width: var(--size);
+  height: var(--size);
+  filter: blur(calc(var(--size) / 3));
+  background-image: linear-gradient(#28a6e7, #53c97d);
+  animation: rotate var(--speed) var(--easing) alternate infinite;
+  border-radius: 50%;
+}
+
+@media (min-width: 720px) {
+  .gradient {
+    --size: 250px;
+  }
+}

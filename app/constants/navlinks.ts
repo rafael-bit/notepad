@@ -1,7 +1,7 @@
 export const links = [
 	{ href: "/", label: "Home" },
 	{ href: "/about", label: "About" },
-	{ href: "/portfolio", label: "Portfolio" },
+	{ href: "/dashboard", label: "Dashboard" },
 	{ href: "/contact", label: "Contact" },
 ]
 
