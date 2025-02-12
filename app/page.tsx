@@ -2,10 +2,12 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Button } from "@/components/ui/button";
 import { MdArrowForward } from "react-icons/md";
+import Banner from "./components/Banner";
 
 export default function Home() {
   return (
     <>
+      <Banner />
       <Header />
       <div className="relative w-[85%] flex flex-col items-center mx-auto container py-20">
         <div className="absolute left-2/5 top-1/4 -translate-x-1/2 -translate-y-1/2 gradient opacity-60"></div>
