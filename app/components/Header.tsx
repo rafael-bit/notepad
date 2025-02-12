@@ -52,7 +52,7 @@ export default function Header() {
 				<div className="md:hidden">
 					<Sheet>
 						<SheetTrigger asChild>
-							<Button variant="ghost" size="icon">
+							<Button variant="ghost" size="icon" className="hover:bg-neutral-900">
 								<Menu className="!w-7 !h-7 text-neutral-200" />
 							</Button>
 						</SheetTrigger>
