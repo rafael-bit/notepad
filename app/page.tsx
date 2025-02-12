@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <Banner />
       <Header />
-      <div className="relative w-[85%] flex flex-col items-center mx-auto container py-20">
+      <div className="relative w-[85%] flex flex-col items-center mx-auto container mt-10 py-20">
         <div className="absolute left-2/5 top-1/4 -translate-x-1/2 -translate-y-1/2 gradient opacity-60"></div>
         <h1 className="text-center text-4xl xs:text-6xl font-bold leading-tight z-10">
           Organize your ideas, simplify <br />
