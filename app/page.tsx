@@ -16,7 +16,7 @@ export default function Home() {
     <>
       <Banner />
       <Header />
-      <div className="relative w-[85%] flex flex-col items-center justify-center mx-auto container mt-10 h-[70vh]">
+      <div className="relative sm:w-[85%] flex flex-col items-center justify-center mx-auto container mt-10 h-[70vh]">
         <div className="absolute left-2/5 top-1/4 -translate-x-1/2 -translate-y-1/2 gradient opacity-60"></div>
         <h1 className="text-neutral-200 text-center text-4xl xs:text-6xl font-bold leading-tight z-10">
           Organize ideas, simplify <br />
@@ -24,7 +24,7 @@ export default function Home() {
             your work
           </span>
         </h1>
-        <p className="w-[55%] text-center mt-7 z-10 text-neutral-300">
+        <p className="w-[70%] sm:w-[55%] text-center mt-7 z-10 text-neutral-300">
           <span className="text-xl font-semibold">"</span>Organize your notes efficiently, keeping everything at your fingertips and ensuring nothing is forgotten, bringing your achievements closer.
           <span className="text-xl font-semibold">"</span>
         </p>
