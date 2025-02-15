@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -17,7 +19,7 @@ export default function AddNotesModal() {
 	return (
 		<>
 			<Dialog>
-				<DialogTrigger className="fixed right-16 bottom-10 bg-gradient-to-r from-blue to-greenMedium rounded-full p-3"><FiPlus className="text-3xl" /></DialogTrigger>
+				<DialogTrigger className="fixed right-5 sm:right-16 bottom-10 bg-gradient-to-r from-blue to-greenMedium rounded-full p-3"><FiPlus className="text-3xl" /></DialogTrigger>
 				<DialogContent className="bg-neutral-900 border-none">
 					<DialogHeader>
 						<DialogTitle className="text-neutral-200 text-center">Create a new note</DialogTitle>
