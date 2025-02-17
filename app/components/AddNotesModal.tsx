@@ -10,11 +10,52 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
+import axios from 'axios'
 import { FiPlus } from "react-icons/fi";
+import { useToast } from "@/hooks/use-toast"
 
 export default function AddNotesModal() {
-	const [ input, setInput ] = useState("");
+	const { toast } = useToast()
+	const [input, setInput] = useState("");
+	
+	const createNotes = useMutation({
+		mutationFn: async () => {
+			const response = await axios.post('/api/createNotes', {
+				prompt: input
+			})
+			return response.data
+		}
+	})
+	
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		if (input.trim() === "") {
+			toast({
+				title: "Create a title",
+				description: "Before you finish, you need to create a title.",
+			});
+			return;
+		}
+
+		createNotes.mutate(undefined, {
+			onSuccess: () => {
+				toast({
+					title: "Success",
+					description: "Congratulations, you created a new note!",
+				});
+			},
+			onError: (err) => {
+				console.error("Error creating note:", err);
+				toast({
+					title: "Sorry",
+					description: "There's a problem in the system. Try again later.",
+				});
+			},
+		});
+	};
 
 	return (
 		<>
@@ -27,7 +68,7 @@ export default function AddNotesModal() {
 							You can start writing your title here
 						</DialogDescription>
 					</DialogHeader>
-					<form action="">
+					<form onSubmit={handleSubmit}>
 						<Input
 							value={input}
 							onChange={(e) => setInput(e.target.value)}
