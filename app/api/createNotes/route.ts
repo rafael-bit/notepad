@@ -1,43 +1,18 @@
-import { db } from "@/lib/db";
-import { $notes } from "@/lib/db/schema";
-import { generateImage, generateImagePrompt } from "@/lib/openai";
-import { auth } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
+import { db } from '@/lib/db';
+import { notes } from '@/lib/db/schema';
+import { eq } from 'drizzle-orm';
 
-export const runtime = "edge";
+export async function POST(request: NextRequest) {
+	const { title } = await request.json();
 
-export async function POST(req: Request) {
-	const { userId } = await auth();
-	if (!userId) {
-		return new NextResponse("unauthorised", { status: 401 });
-	}
-	const body = await req.json();
-	const { prompt } = body;
-	const image_description = await generateImagePrompt(prompt);
-	if (!image_description) {
-		return new NextResponse("failed to generate image description", {
-			status: 500,
-		});
-	}
-	const image_url = await generateImage(image_description);
-	if (!image_url) {
-		return new NextResponse("failed to generate image ", {
-			status: 500,
-		});
+	const newNote = await db.insert(notes).values({ title }).returning();
+
+	if (newNote.length === 0) {
+		return NextResponse.json({ error: 'Failed to create note' }, { status: 500 });
 	}
 
-	const note_ids = await db
-		.insert($notes)
-		.values({
-			prompt,
-			userId,
-			imageUrl: image_url,
-		})
-		.returning({
-			insertedId: $notes.id,
-		});
+	const createdNote = newNote[0];
 
-	return NextResponse.json({
-		note_id: note_ids[0].insertedId,
-	});
+	return NextResponse.json({ title: createdNote.title });
 }

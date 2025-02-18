@@ -1,12 +1,9 @@
-import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, serial, varchar, text, timestamp } from "drizzle-orm/pg-core";
 
-export const $notes = pgTable('notes', {
-	id: serial('id').primaryKey(),
-	prompt: text('prompt').notNull(),
-	imageUrl: text('image_url'),
-	editorState: text('editor_state'),
-	createdAt: timestamp('created_at').defaultNow().notNull(),
-	userId: text('user_id').notNull()
-})
-
-export type NoteType = typeof $notes.$inferInsert
+export const notes = pgTable("notes", {
+	id: serial("id").primaryKey(),
+	title: varchar("title", { length: 255 }).notNull(),
+	content: text("content"),
+	photoUrl: text("photo_url"),
+	createdAt: timestamp("created_at").defaultNow().notNull(),
+});
