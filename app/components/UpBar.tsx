@@ -2,14 +2,17 @@ import { Button } from "@/components/ui/button";
 import { UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { MdArrowBack } from "react-icons/md";
 
 export default function UpBar() {
+	const router = useRouter();
+
 	return (
 		<>
 			<header className="container mx-auto w-full flex items-center justify-between py-10 px-5 sm:px-0">
 				<div className="flex items-end gap-5">
-					<Button className="rounded-lg bg-gradient-to-r from-blue to-greenMedium py-2 transition hover:opacity-90"><MdArrowBack /> Back</Button>
+					<Button onClick={() => router.push('/')} className="rounded-lg bg-gradient-to-r from-blue to-greenMedium py-2 transition hover:opacity-90"><MdArrowBack /> Back</Button>
 					<Link href="#" className="pr-6 hidden sm:flex items-end">
 						<Image
 							src={'/logo.png'}
