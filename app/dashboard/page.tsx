@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+
 import UpBar from '../components/UpBar'
 import AddNotesModal from '../components/AddNotesModal'
 
