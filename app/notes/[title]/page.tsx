@@ -100,7 +100,7 @@ export default function NotePage({ params }: { params: Promise<{ title: string }
 					placeholder="Note Title"
 					className="rounded-lg p-7 bg-neutral-800 border-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 focus:border-transparent !text-4xl font-bold"
 				/>
-				<TipTap editor={editor as any} />
+				{editor && <TipTap editor={editor} />}
 				<EditorContent editor={editor} className="rounded-lg p-3 bg-neutral-800 border-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 focus:border-transparent" placeholder="Write something nice..."/>
 			</div>
 		</>
