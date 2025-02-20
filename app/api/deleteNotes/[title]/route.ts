@@ -1,13 +1,10 @@
 import { db } from "@/lib/db";
 import { notes } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
-import { NextResponse, type NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function DELETE(
-	request: NextRequest,
-	{ params }: { params: { title: string } }
-) {
-	const title = params.title;
+export async function DELETE(request: Request, { params }: { params: { title: string } }) {
+	const { title } = params;
 
 	try {
 		const deletedNote = await db
@@ -15,7 +12,7 @@ export async function DELETE(
 			.where(eq(notes.title, title))
 			.returning();
 
-		if (!deletedNote || deletedNote.length === 0) {
+		if (!deletedNote) {
 			return NextResponse.json({ error: "Note not found" }, { status: 404 });
 		}
 
