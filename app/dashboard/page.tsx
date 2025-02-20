@@ -18,6 +18,11 @@ const formatTitle = (title: string) => {
 	return title.charAt(0).toUpperCase() + title.slice(1);
 };
 
+const formatContent = (content: string | null) => {
+	if (!content) return 'No content...';
+	return content.charAt(0).toUpperCase() + content.slice(1);
+};
+
 export default function Dashboard() {
 	const [notes, setNotes] = useState<Note[]>([]);
 
@@ -28,10 +33,11 @@ export default function Dashboard() {
 				const formattedNotes = data.map((note: Note) => ({
 					...note,
 					title: formatTitle(note.title),
+					content: formatContent(note.content),
 				}));
 				setNotes(formattedNotes);
 			} catch (error) {
-				console.error('Erro ao buscar notas:', error);
+				console.error('Error fetching notes:', error);
 			}
 		};
 
