@@ -49,7 +49,7 @@ export default function AddNotesModal() {
 					description: "Congratulations, you have created a new note!",
 				});
 				setInput("");
-				router.push(`/getNotes/${ encodeURIComponent(data.title)
+				router.push(`/notes/${ encodeURIComponent(data.title)
 			}`);
 			},
 			onError: (err) => {

@@ -12,31 +12,35 @@ export default function Utilbar() {
 	const { user } = useUser();
 
 	const formatTitle = (path: string) => {
-		const segments = path.split('/').filter(Boolean);
+		const decodedPath = decodeURIComponent(path);
+		const segments = decodedPath.split('/').filter(Boolean);
 		const lastSegment = segments[segments.length - 1] || 'dashboard';
 		return lastSegment
 			.replace(/-/g, ' ')
-			.replace(/\b\w/g, c => c.toUpperCase());
 	};
 
+
 	const title = formatTitle(pathname);
-	const noteId = pathname.split("/").pop()
+	const noteId = pathname.split("/").pop()?.toLowerCase();
 
 	const handleDelete = async () => {
 		try {
-			await axios.delete(`/api/notes/${noteId}`);
+			await axios.delete(`/api/deleteNotes/${noteId}`);
 			toast({
 				title: "Success",
 				description: "Success, you have deleted a note!",
 			});
+
+			router.push("/dashboard");
 		} catch (error) {
-			console.error('Error deleting note:', error);
+			console.error("Error deleting note:", error);
 			toast({
 				title: "Error",
 				description: "A system problem occurred. Please try again later.",
 			});
 		}
 	};
+
 
 	return (
 		<>
@@ -56,7 +60,6 @@ export default function Utilbar() {
 							<p className='font-semibold'>{user.firstName} {user.lastName}</p> &nbsp;/&nbsp; <p className="">{title}</p>
 						</div>
 					)}
-					{noteId && (
 						<Button
 							onClick={handleDelete}
 							variant="destructive"
@@ -64,7 +67,6 @@ export default function Utilbar() {
 						>
 							<Trash size={20} />
 						</Button>
-					)}
 				</div>
 			</header>
 			<div className="mx-auto w-[90%] h-[1px] bg-neutral-700 mt-5 mb-10"></div>
