@@ -16,10 +16,11 @@ type Props = {
 
 export default function NoteCard({ note }: Props) {
 	const router = useRouter();
+	const titleLowerCase = note.title.toLowerCase();
 
 	return (
 		<Card
-			onClick={() => router.push(`/notes/${note.title}`)}
+			onClick={() => router.push(`/notes/${titleLowerCase}`)}
 			className="cursor-pointer  transition-all duration-200 flex w-full bg-neutral-800 border-none rounded-lg"
 		>
 			{note.photoUrl && (
@@ -36,7 +37,7 @@ export default function NoteCard({ note }: Props) {
 						{format(new Date(note.createdAt), "dd/MM/yyyy HH:mm")}
 					</p>
 					<p className="text-sm text-neutral-300 line-clamp-2">
-						{note.content || "Sem conteúdo..."}
+						{note.content}
 					</p>
 				</div>
 			</CardContent>
