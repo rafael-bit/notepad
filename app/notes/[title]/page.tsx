@@ -57,8 +57,7 @@ export default function NotePage({ params }: { params: Promise<{ title: string }
 				description: `${error}` || "Tente novamente.",
 			});
 		}
-	}, [note, debouncedTitle, editorContent, toast, router]);
-
+	}, [note, debouncedTitle, editorContent, toast, editor]);
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -66,7 +65,7 @@ export default function NotePage({ params }: { params: Promise<{ title: string }
 		}, 5000);
 
 		return () => clearInterval(interval);
-	}, [editor?.getHTML(), saveContent]);
+	}, [saveContent, editor?.isFocused]);
 
 	useEffect(() => {
 		if (!note || debouncedTitle.trim() === "" || debouncedTitle === note.title) return;
@@ -86,7 +85,7 @@ export default function NotePage({ params }: { params: Promise<{ title: string }
 				console.error("Erro ao atualizar título:", err);
 				toast({ title: "Erro ao atualizar título." });
 			});
-	}, [debouncedTitle, note?.title, title, toast, editorContent]);
+	}, [debouncedTitle, note, router, note?.title, title, toast, editorContent]);
 
 	if (!note) return <div>Carregando...</div>;
 

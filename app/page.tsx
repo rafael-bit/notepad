@@ -25,8 +25,8 @@ export default function Home() {
           </span>
         </h1>
         <p className="w-[70%] sm:w-[55%] text-center mt-7 z-10 text-neutral-300">
-          <span className="text-xl font-semibold">"</span>Organize your notes efficiently, keeping everything at your fingertips and ensuring nothing is forgotten, bringing your achievements closer.
-          <span className="text-xl font-semibold">"</span>
+          <span className="text-xl font-semibold">&ldquo;</span>Organize your notes efficiently, keeping everything at your fingertips and ensuring nothing is forgotten, bringing your achievements closer.
+          <span className="text-xl font-semibold">&ldquo;</span>
         </p>
         <div className="flex items-center gap-7 mt-5 z-10">
           <div className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue to-greenMedium p-[2.25px] font-semibold text-white no-underline">

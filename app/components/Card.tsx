@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { format } from "date-fns";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 type Note = {
@@ -24,7 +25,7 @@ export default function NoteCard({ note }: Props) {
 			className="cursor-pointer  transition-all duration-200 flex w-full bg-neutral-800 border-none rounded-lg"
 		>
 			{note.photoUrl && (
-				<img
+				<Image
 					src={note.photoUrl}
 					alt={note.title}
 					className="w-32 h-32 object-cover rounded-l-lg"
