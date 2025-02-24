@@ -22,13 +22,15 @@ export default function NoteCard({ note }: Props) {
 	return (
 		<Card
 			onClick={() => router.push(`/notes/${titleLowerCase}`)}
-			className="cursor-pointer  transition-all duration-200 flex w-full bg-neutral-800 border-none rounded-lg"
+			className="cursor-pointer  transition-all duration-200 flex w-full bg-neutral-800 border-none rounded-lg my-10"
 		>
 			{note.photoUrl && (
 				<Image
 					src={note.photoUrl}
 					alt={note.title}
 					className="w-32 h-32 object-cover rounded-l-lg"
+					width={900}
+					height={900}
 				/>
 			)}
 			<CardContent className="flex flex-col justify-between p-4 w-full">

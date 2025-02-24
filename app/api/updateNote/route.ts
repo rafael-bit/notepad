@@ -5,13 +5,14 @@ import { eq } from "drizzle-orm";
 
 export async function PUT(req: NextRequest) {
 	try {
-		const { oldTitle, title, content } = await req.json();
+		const { oldTitle, title, content, photoUrl } = await req.json();
 
 		const updatedNote = await db
 			.update(notes)
 			.set({
 				title,
 				content,
+				photoUrl,
 			})
 			.where(eq(notes.title, oldTitle))
 			.returning();

@@ -3,15 +3,13 @@ import { db } from '@/lib/db';
 import { notes } from '@/lib/db/schema';
 
 export async function POST(request: NextRequest) {
-	const { title } = await request.json();
+	const { title, photoUrl } = await request.json();
 
-	const newNote = await db.insert(notes).values({ title }).returning();
+	const newNote = await db.insert(notes).values({ title, photoUrl }).returning();
 
 	if (newNote.length === 0) {
 		return NextResponse.json({ error: 'Failed to create note' }, { status: 500 });
 	}
 
-	const createdNote = newNote[0];
-
-	return NextResponse.json({ title: createdNote.title });
+	return NextResponse.json(newNote[0]);
 }
