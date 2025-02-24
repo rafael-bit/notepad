@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useState, useEffect, useCallback, use } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
@@ -10,13 +10,14 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import TipTap from "@/app/components/Tiptap";
 import Utilbar from "@/app/components/Utilbar";
+import PhotoSelector from "@/app/components/PhotoSelector";
 
 export default function NotePage({ params }: { params: Promise<{ title: string }> }) {
 	const router = useRouter();
 	const { toast } = useToast();
 	const { title } = use(params);
 
-	const [note, setNote] = useState<{ title: string; content: string } | null>(null);
+	const [note, setNote] = useState<{ title: string; content: string; photoUrl: string } | null>(null);
 	const [tempTitle, setTempTitle] = useState("");
 	const [debouncedTitle] = useDebounce(tempTitle, 3000);
 	const [editorContent, setEditorContent] = useState("");
@@ -34,35 +35,36 @@ export default function NotePage({ params }: { params: Promise<{ title: string }
 			setNote(data);
 			setTempTitle(data.title);
 			editor?.commands.setContent(data.content || "");
+		}).catch((err) => {
+			console.error("Failed to fetch note:", err);
+			toast({ title: "Failed to load note." });
 		});
-	}, [title, editor]);
+	}, [title, editor, toast]);
 
 	const saveContent = useCallback(async () => {
 		if (!note || !editor) return;
 
 		try {
-			const response = await axios.put(`/api/updateNote`, {
+			const response = await axios.put("/api/updateNote", {
 				oldTitle: note.title,
 				title: debouncedTitle,
 				content: editorContent,
+				photoUrl: note.photoUrl,
 			});
 
 			if (response.status === 200) {
-				toast({ title: "Conteúdo salvo com sucesso!" });
+				toast({ title: "Content saved successfully!" });
 			}
 		} catch (error) {
-			console.error("Erro ao salvar conteúdo:", error);
-			toast({
-				title: "Erro ao salvar o conteúdo.",
-				description: `${error}` || "Tente novamente.",
-			});
+			console.error("Failed to save content:", error);
+			toast({ title: "Failed to save content." });
 		}
 	}, [note, debouncedTitle, editorContent, toast, editor]);
 
 	useEffect(() => {
 		const interval = setInterval(() => {
 			if (editor?.isFocused) saveContent();
-		}, 5000);
+		}, 3000);
 
 		return () => clearInterval(interval);
 	}, [saveContent, editor?.isFocused]);
@@ -70,24 +72,27 @@ export default function NotePage({ params }: { params: Promise<{ title: string }
 	useEffect(() => {
 		if (!note || debouncedTitle.trim() === "" || debouncedTitle === note.title) return;
 
-		axios
-			.put(`/api/updateNote`, {
-				oldTitle: title,
-				title: debouncedTitle,
-				content: editorContent,
-			})
-			.then(() => {
-				setNote((prev) => (prev ? { ...prev, title: debouncedTitle } : prev));
-				toast({ title: "Título atualizado!" });
-				router.push(`/notes/${debouncedTitle}`);
-			})
-			.catch((err) => {
-				console.error("Erro ao atualizar título:", err);
-				toast({ title: "Erro ao atualizar título." });
-			});
-	}, [debouncedTitle, note, router, note?.title, title, toast, editorContent]);
+		axios.put("/api/updateNote", {
+			oldTitle: title,
+			title: debouncedTitle,
+			content: editorContent,
+			photoUrl: note.photoUrl,
+		}).then(() => {
+			setNote((prev) => (prev ? { ...prev, title: debouncedTitle } : prev));
+			toast({ title: "Title updated!" });
+			router.push(`/notes/${debouncedTitle}`);
+		}).catch((err) => {
+			console.error("Failed to update title:", err);
+			toast({ title: "Failed to update title." });
+		});
+	}, [debouncedTitle, note, router, title, toast, editorContent]);
 
-	if (!note) return <div>Carregando...</div>;
+	const handlePhotoSelect = (url: string) => {
+		setNote((prev) => (prev ? { ...prev, photoUrl: url } : prev));
+		toast({ title: "Photo updated!" });
+	};
+
+	if (!note) return <div>Loading...</div>;
 
 	return (
 		<>
@@ -99,8 +104,13 @@ export default function NotePage({ params }: { params: Promise<{ title: string }
 					placeholder="Note Title"
 					className="rounded-lg p-7 bg-neutral-800 border-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 focus:border-transparent !text-4xl font-bold"
 				/>
+				<PhotoSelector noteTitle={title} onPhotoSelect={handlePhotoSelect} />
 				{editor && <TipTap editor={editor} />}
-				<EditorContent editor={editor} className="rounded-lg p-3 bg-neutral-800 border-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 focus:border-transparent" placeholder="Write something nice..."/>
+				<EditorContent
+					editor={editor}
+					className="rounded-lg p-3 bg-neutral-800 border-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 focus:border-transparent"
+					placeholder="Write something nice..."
+				/>
 			</div>
 		</>
 	);

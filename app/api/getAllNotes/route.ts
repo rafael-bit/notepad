@@ -8,7 +8,7 @@ export async function GET() {
 		const allNotes = await db.select().from(notes).orderBy(desc(notes.createdAt));
 		return NextResponse.json(allNotes, { status: 200 });
 	} catch (error) {
-		console.error("Erro ao buscar notas:", error);
-		return NextResponse.json({ message: "Erro ao buscar notas" }, { status: 500 });
+		console.error("Error fetching notes:", error);
+		return NextResponse.json({ message: "Error fetching notes" }, { status: 500 });
 	}
 }
