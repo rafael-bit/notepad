@@ -1,64 +1,36 @@
-<p align="center">
-   <img src="git/readme.png" style="border-radius: 10px;" width="500"/>
-</p>
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-<h1 align="center">
-    <a href="#">Notepad</a>
-</h1>
+## Getting Started
 
-<p align="center">
-    Notepad is a web application designed for creating and managing notes, featuring rich text editing, image selection, and seamless storage integration.
-</p>
-
-<p align="center">
-  <a href="https://github.com/rafael-bit/notepad">
-  	<img src="https://img.shields.io/github/stars/rafael-bit/notepad?label=rafael-bit%2Fnotepad" alt="Notepad repository stars count" />
-  </a>
-</p>
-
-# 🚀 How It Works
-
-Notepad allows users to create, edit, and manage notes with features like rich text editing using TipTap, automatic content saving after inactivity, and image selection from a gallery.
-
-## 👷 Running Locally
-
-#### Clone the repository
+First, run the development server:
 
 ```bash
-git clone https://github.com/rafael-bit/notepad
-```
-
-#### Install dependencies and run the application in development mode
-
-```bash
-yarn
+npm run dev
+# or
 yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-Open this address in your browser: [Notepad](http://localhost:3000/)
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-# 💻 Technologies
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-- [Next.js](https://nextjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Shadcn](https://ui.shadcn.com/)
-- [TipTap](https://tiptap.dev/)
-- [Drizzle ORM](https://orm.drizzle.team/)
-- [Neon Database](https://neon.tech/)
-- [Clerk](https://clerk.dev/)
-- [React Query](https://tanstack.com/query/latest)
-- [Lucide React](https://lucide.dev/)
-- [Axios](https://axios-http.com/)
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-# 🚩 Bugs
+## Learn More
 
-Feel free to **report a new issue** with an appropriate title and description.
+To learn more about Next.js, take a look at the following resources:
 
-# 💡 Author
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-- Rafael Áquila ([@rafael-bit](https://github.com/rafael-bit))
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-# 🔧 Contributing
+## Deploy on Vercel
 
-Check the [contribution page](https://github.com/rafael-bit/notepad/) to see the best places to report issues, start discussions, and contribute.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

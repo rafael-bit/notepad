@@ -1,24 +1,32 @@
-import type { Metadata } from "next";
-import { ClerkProvider } from "@clerk/nextjs";
-import { dark } from '@clerk/themes'
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Provider from "./components/Provider";
-import { Toaster } from "@/components/ui/toaster"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrains = JetBrains_Mono({
+  variable: "--font-jetbrains",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Notepad",
-  description: "Notepad is a simple text editor, that you can use to write notes and more.",
+  title: {
+    default: "Notepad",
+    template: "%s · Notepad",
+  },
+  description: "Notas instantâneas por link. Escreve, auto-grava, compartilha.",
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
+    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+  ],
 };
 
 export default function RootLayout({
@@ -27,21 +35,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      appearance={{
-        baseTheme: dark,
-      }}
-    >
-      <html lang="en">
-        <Provider>
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased bg-neutral-900 text-neutral-200`}
-          >
-            {children}
-            <Toaster />
-          </body>
-        </Provider>
-      </html>
-    </ClerkProvider>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body
+        className={`${inter.variable} ${jetbrains.variable} min-h-screen bg-[var(--background)] font-sans text-[var(--foreground)] antialiased`}
+      >
+        {children}
+      </body>
+    </html>
   );
 }

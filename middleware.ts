@@ -1,17 +1,21 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
-const isProtectedRoute = createRouteMatcher(['/dashboard(.*)', '/forum(.*)'])
-
-export default clerkMiddleware(async (auth, req) => {
-	if (isProtectedRoute(req)) await auth.protect()
-})
+/** Links antigos com prefixo /n/ redirecionam para a raiz. */
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  if (pathname === "/n") {
+    const url = request.nextUrl.clone();
+    url.pathname = "/";
+    return NextResponse.redirect(url, 308);
+  }
+  if (pathname.startsWith("/n/")) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.slice(2);
+    return NextResponse.redirect(url, 308);
+  }
+}
 
 export const config = {
-	matcher: [
-		// Skip Next.js internals and all static files, unless found in search params
-		"/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-		'/',
-		// Always run for API routes
-		"/(api|trpc)(.*)",
-	],
+  matcher: ["/n", "/n/:path*"],
 };
